@@ -1,0 +1,97 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>{{username}</title>
+    </head>
+    <body>
+        <table class="table table-alert">
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>description</th>
+                <th>likes</th>
+                <th>topic</th>
+                <th>image</th>
+                <th>edit collection</th>
+                <th>see collection</th>
+                <th>delete collection</th>
+            </tr>
+
+            <tr *ngFor="let collection of collections">
+                <td>{{collection.id}}</td>
+                <td>{{collection.name}}</td>
+                <td>{{collection.description}}</td>
+                <td><button (click)="like(collection.id)">{{collection.likes}}</button></td>
+                <td>{{getTopic(collection.topic)}}</td>
+                <td><img src="{{collection.image}}" alt="image"></td>
+                <td><button (click)="editCollection(collection)"></button></td>
+                <td><button (click)="seeCollection(collection.id)"></button></td>
+                <td><button (click)="deleteCollection(collection.id)"></button></td>
+            </tr>
+        </table>
+
+        <button (click)="newCollection()">New collection</button>
+        
+
+        <form name="form" #f="ngForm" (submit)="submit()" novalidate class="new-collection-form" 
+            [ngClass]="isNewForm ? 'show-form':'hide-form'">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text"
+                        id="name"
+                        class="form-control"
+                        name="name"
+                        placeholder="Collection name"
+                        value="{{collection.name}}"
+                        [(ngModel)]="collectionModel.name">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text"
+                        id="description"
+                        class="form-control"
+                        name="description"
+                        placeholder="Collection description"
+                        value="{{collection.description}}"
+                        [(ngModel)]="collectionModel.description">
+            </div>
+
+            <div class="form-group">
+                <label for="topic">Topic</label>
+                <select name="topic" 
+                        id="topic"
+                        class="form-control"
+                        [(ngModel)]="collectionModel.topic">
+                    <option *ngFor="let topic of topics" 
+                    value="{{topic.id}}">
+                    {{topic.topic}}
+                </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="text"
+                        id="image"
+                        class="form-control"
+                        name="image"
+                        placeholder="Collection image"
+                        value="{{collection.image}}"
+                        [(ngModel)]="collectionModel.image">
+            </div>
+
+            <div class="form-group-btn">
+                <button type="submit" class="submit-btn">
+                    <span>{{submitMessage}}</span>
+                </button>
+            </div>
+
+            <div class="form-group-btn">
+                <button type="button" (click)="hide()" class="submit-btn">
+                    <span>Hide field</span>
+                </button>
+            </div>
+        </form>
+    </body>
+</html>

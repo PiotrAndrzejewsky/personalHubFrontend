@@ -1,0 +1,68 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>{{username}</title>
+    </head>
+    <body>
+        <table class="table table-alert">
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>likes</th>
+                <th>creation time</th>
+                <th>image</th>
+                <th>edit item</th>
+                <th>delete item</th>
+            </tr>
+
+            <tr *ngFor="let item of items">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td><button (click)="like(item.id)">{{item.likes}}</button></td>
+                <td>{{item.creationTime}}</td>
+                <td><img src="{{item.image}}" alt="image"></td>
+                <td><button (click)="editItem(item)"></button></td>
+                <td><button (click)="deleteItem(item.id)"></button></td>
+            </tr>
+        </table>
+
+        <button (click)="newItem()">New item</button>
+
+        <form name="form" #f="ngForm" (submit)="submit()" novalidate class="new-collection-form" 
+            [ngClass]="isNewItem ? 'show-form':'hide-form'">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text"
+                        id="name"
+                        class="form-control"
+                        name="name"
+                        placeholder="Item name"
+                        value="{{item.name}}"
+                        [(ngModel)]="item.name">
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="text"
+                        id="image"
+                        class="form-control"
+                        name="image"
+                        placeholder="Item image"
+                        value="{{item.image}}"
+                        [(ngModel)]="item.image">
+            </div>
+
+            <div class="form-group-btn">
+                <button type="submit" class="submit-btn">
+                    <span>{{submitMessage}}</span>
+                </button>
+            </div>
+
+            <div class="form-group-btn">
+                <button type="button" (click)="hide()" class="submit-btn">
+                    <span>Hide field</span>
+                </button>
+            </div>
+        </form>
+    </body>
+</html>
